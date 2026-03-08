@@ -7,6 +7,7 @@ use App\Http\Controllers\Dashboard\CategoryController;
 use App\Http\Controllers\Dashboard\CustomerController;
 use App\Http\Controllers\Dashboard\EmployeeController;
 use App\Http\Controllers\Dashboard\SupplierController;
+use App\Http\Controllers\Dashboard\ExpenseController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\PaySalaryController;
 use App\Http\Controllers\Dashboard\AttendanceController;
@@ -63,6 +64,11 @@ Route::middleware(['permission:supplier.menu'])->group(function () {
 // ====== EMPLOYEES ======
 Route::middleware(['permission:employee.menu'])->group(function () {
     Route::resource('/employees', EmployeeController::class);
+});
+
+// ====== EXPENSES ======
+Route::middleware(['permission:expense.menu'])->group(function () {
+    Route::resource('/expenses', ExpenseController::class);
 });
 
 // ====== EMPLOYEE ATTENDANCE ======

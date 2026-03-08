@@ -2,7 +2,7 @@
 <div class="iq-sidebar sidebar-default ">
     <div class="iq-sidebar-logo d-flex align-items-center justify-content-between">
         <a href="{{ route('dashboard') }}" class="header-logo">
-            <img src="{{ asset('assets/images/logo.png') }}" class="img-fluid rounded-normal light-logo" alt="logo"><h5 class="logo-title light-logo ml-3">Apple Point POS</h5>
+            <img src="{{ asset('assets/images/logo.png') }}" class="img-fluid rounded-normal light-logo" alt="logo"><h5 class="logo-title light-logo ml-3">Apple Point</h5>
         </a>
         <div class="iq-menu-bt-sidebar ml-0">
             <x-heroicon-o-bars-3 class="wrapper-menu w-8 h-8" />
@@ -112,6 +112,15 @@
                             <span class="ml-3">Suppliers</span>
                             </a>
                             </li>
+                @endif
+
+                @if (auth()->user()->can('expense.menu'))
+                    <li class="{{ Request::is('expenses*') ? 'active' : '' }}">
+                        <a href="{{ route('expenses.index') }}" class="svg-icon">
+                            <x-heroicon-o-banknotes class="w-6 h-6" />
+                            <span class="ml-3">Expenses</span>
+                        </a>
+                    </li>
                 @endif
 
                 @if (auth()->user()->can('salary.menu'))
