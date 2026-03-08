@@ -14,96 +14,184 @@ class ProductSeeder extends Seeder
      */
     public function run(): void
     {
-        $products = [
-            // Computers & Laptops (Category 1)
-            [
-                'name' => 'MacBook Air M2',
-                'category_id' => 1,
-                'stock' => 10,
-                'buying_price' => 900,
-                'selling_price' => 1100,
+        $iphoneModels = [
+            'iPhone 11' => [
+                'colors' => ['Black', 'Green', 'Yellow', 'Purple', 'Red', 'White'],
+                'storage' => ['64GB', '128GB', '256GB'],
+                'base_price' => 500
             ],
-            [
-                'name' => 'ASUS ROG Zephyrus G14',
-                'category_id' => 1,
-                'stock' => 5,
-                'buying_price' => 1400,
-                'selling_price' => 1700,
+            'iPhone 11 Pro' => [
+                'colors' => ['Gold', 'Space Gray', 'Silver', 'Midnight Green'],
+                'storage' => ['64GB', '256GB', '512GB'],
+                'base_price' => 700
             ],
-            // Smartphones & Tablets (Category 2)
-            [
-                'name' => 'iPhone 14 Pro Max',
-                'category_id' => 2,
-                'stock' => 15,
-                'buying_price' => 1000,
-                'selling_price' => 1200,
+            'iPhone 11 Pro Max' => [
+                'colors' => ['Gold', 'Space Gray', 'Silver', 'Midnight Green'],
+                'storage' => ['64GB', '256GB', '512GB'],
+                'base_price' => 800
             ],
-            [
-                'name' => 'Samsung Galaxy Tab S9 Ultra',
-                'category_id' => 2,
-                'stock' => 8,
-                'buying_price' => 1100,
-                'selling_price' => 1300,
+            'iPhone 12' => [
+                'colors' => ['Black', 'White', 'Red', 'Green', 'Blue', 'Purple'],
+                'storage' => ['64GB', '128GB', '256GB'],
+                'base_price' => 600
             ],
-            // Computer Accessories (Category 3)
-            [
-                'name' => 'Logitech MX Master 3S',
-                'category_id' => 3,
-                'stock' => 50,
-                'buying_price' => 80,
-                'selling_price' => 100,
+            'iPhone 12 Mini' => [
+                'colors' => ['Black', 'White', 'Red', 'Green', 'Blue', 'Purple'],
+                'storage' => ['64GB', '128GB', '256GB'],
+                'base_price' => 550
             ],
-            [
-                'name' => 'Keychron K2 Pro Mechanical Keyboard',
-                'category_id' => 3,
-                'stock' => 20,
-                'buying_price' => 90,
-                'selling_price' => 120,
+            'iPhone 12 Pro' => [
+                'colors' => ['Silver', 'Graphite', 'Gold', 'Pacific Blue'],
+                'storage' => ['128GB', '256GB', '512GB'],
+                'base_price' => 800
             ],
-            // Smartwatches (Category 4)
-            [
-                'name' => 'Apple Watch Series 9',
-                'category_id' => 4,
-                'stock' => 12,
-                'buying_price' => 350,
-                'selling_price' => 450,
+            'iPhone 12 Pro Max' => [
+                'colors' => ['Silver', 'Graphite', 'Gold', 'Pacific Blue'],
+                'storage' => ['128GB', '256GB', '512GB'],
+                'base_price' => 900
             ],
-            // Cameras & Audio (Category 5)
-            [
-                'name' => 'Sony Alpha a7 IV Body Only',
-                'category_id' => 5,
-                'stock' => 3,
-                'buying_price' => 2200,
-                'selling_price' => 2500,
+            'iPhone 13' => [
+                'colors' => ['Starlight', 'Midnight', 'Blue', 'Pink', 'Red', 'Green'],
+                'storage' => ['128GB', '256GB', '512GB'],
+                'base_price' => 700
             ],
-            // Gaming Gear (Category 7)
-            [
-                'name' => 'SteelSeries Arctis Nova Pro',
-                'category_id' => 7,
-                'stock' => 10,
-                'buying_price' => 300,
-                'selling_price' => 350,
+            'iPhone 13 Mini' => [
+                'colors' => ['Starlight', 'Midnight', 'Blue', 'Pink', 'Red', 'Green'],
+                'storage' => ['128GB', '256GB', '512GB'],
+                'base_price' => 650
+            ],
+            'iPhone 13 Pro' => [
+                'colors' => ['Silver', 'Graphite', 'Gold', 'Sierra Blue', 'Alpine Green'],
+                'storage' => ['128GB', '256GB', '512GB', '1TB'],
+                'base_price' => 900
+            ],
+            'iPhone 13 Pro Max' => [
+                'colors' => ['Silver', 'Graphite', 'Gold', 'Sierra Blue', 'Alpine Green'],
+                'storage' => ['128GB', '256GB', '512GB', '1TB'],
+                'base_price' => 1000
+            ],
+            'iPhone 14' => [
+                'colors' => ['Midnight', 'Purple', 'Starlight', 'Blue', 'Red', 'Yellow'],
+                'storage' => ['128GB', '256GB', '512GB'],
+                'base_price' => 800
+            ],
+            'iPhone 14 Plus' => [
+                'colors' => ['Midnight', 'Purple', 'Starlight', 'Blue', 'Red', 'Yellow'],
+                'storage' => ['128GB', '256GB', '512GB'],
+                'base_price' => 900
+            ],
+            'iPhone 14 Pro' => [
+                'colors' => ['Space Black', 'Silver', 'Gold', 'Deep Purple'],
+                'storage' => ['128GB', '256GB', '512GB', '1TB'],
+                'base_price' => 1000
+            ],
+            'iPhone 14 Pro Max' => [
+                'colors' => ['Space Black', 'Silver', 'Gold', 'Deep Purple'],
+                'storage' => ['128GB', '256GB', '512GB', '1TB'],
+                'base_price' => 1100
+            ],
+            'iPhone 15' => [
+                'colors' => ['Black', 'Blue', 'Green', 'Yellow', 'Pink'],
+                'storage' => ['128GB', '256GB', '512GB'],
+                'base_price' => 900
+            ],
+            'iPhone 15 Plus' => [
+                'colors' => ['Black', 'Blue', 'Green', 'Yellow', 'Pink'],
+                'storage' => ['128GB', '256GB', '512GB'],
+                'base_price' => 1000
+            ],
+            'iPhone 15 Pro' => [
+                'colors' => ['Black Titanium', 'White Titanium', 'Blue Titanium', 'Natural Titanium'],
+                'storage' => ['128GB', '256GB', '512GB', '1TB'],
+                'base_price' => 1100
+            ],
+            'iPhone 15 Pro Max' => [
+                'colors' => ['Black Titanium', 'White Titanium', 'Blue Titanium', 'Natural Titanium'],
+                'storage' => ['256GB', '512GB', '1TB'],
+                'base_price' => 1200
+            ],
+            'iPhone 16' => [
+                'colors' => ['Black', 'White', 'Pink', 'Teal', 'Ultramarine'],
+                'storage' => ['128GB', '256GB', '512GB'],
+                'base_price' => 1000
+            ],
+            'iPhone 16 Plus' => [
+                'colors' => ['Black', 'White', 'Pink', 'Teal', 'Ultramarine'],
+                'storage' => ['128GB', '256GB', '512GB'],
+                'base_price' => 1100
+            ],
+            'iPhone 16e' => [
+                'colors' => ['Black', 'White'],
+                'storage' => ['128GB'],
+                'base_price' => 950
+            ],
+            'iPhone 16 Pro' => [
+                'colors' => ['Black Titanium', 'White Titanium', 'Natural Titanium', 'Desert Titanium'],
+                'storage' => ['128GB', '256GB', '512GB', '1TB'],
+                'base_price' => 1200
+            ],
+            'iPhone 16 Pro Max' => [
+                'colors' => ['Black Titanium', 'White Titanium', 'Natural Titanium', 'Desert Titanium'],
+                'storage' => ['256GB', '512GB', '1TB'],
+                'base_price' => 1300
+            ],
+            'iPhone 17' => [
+                'colors' => ['Black', 'White', 'Mist Blue', 'Sage', 'Lavender'],
+                'storage' => ['256GB', '512GB'],
+                'base_price' => 1100
+            ],
+            'iPhone Air' => [
+                'colors' => ['Sky Blue', 'Light Gold', 'Cloud White', 'Space Black'],
+                'storage' => ['256GB', '512GB', '1TB'],
+                'base_price' => 1200
+            ],
+            'iPhone 17 Pro' => [
+                'colors' => ['Cosmic Orange', 'Deep Blue', 'Silver', 'Space Black'],
+                'storage' => ['256GB', '512GB', '1TB', '2TB'],
+                'base_price' => 1300
+            ],
+            'iPhone 17 Pro Max' => [
+                'colors' => ['Cosmic Orange', 'Deep Blue', 'Silver', 'Space Black'],
+                'storage' => ['256GB', '512GB', '1TB', '2TB'],
+                'base_price' => 1400
             ],
         ];
 
-        foreach ($products as $product) {
-            Product::create([
-                'name' => $product['name'],
-                'slug' => Str::slug($product['name']),
-                'code' => IdGenerator::generate([
-                    'table' => 'products',
-                    'field' => 'code',
-                    'length' => 10,
-                    'prefix' => 'PRD-'
-                ]),
-                'category_id' => $product['category_id'],
-                'stock' => $product['stock'],
-                'buying_price' => $product['buying_price'],
-                'selling_price' => $product['selling_price'],
-                'buying_date' => now()->subDays(rand(1, 30)),
-                'expire_date' => now()->addYear(),
-                'image' => null,
-            ]);
+        foreach ($iphoneModels as $model => $details) {
+            foreach ($details['colors'] as $color) {
+                foreach ($details['storage'] as $storage) {
+                    $productName = "{$model} {$color} {$storage}";
+
+                    // Adjust price based on storage
+                    $priceModifier = 0;
+                    if ($storage === '128GB') $priceModifier = 0;
+                    if ($storage === '256GB') $priceModifier = 100;
+                    if ($storage === '512GB') $priceModifier = 200;
+                    if ($storage === '1TB') $priceModifier = 400;
+                    if ($storage === '2TB') $priceModifier = 600;
+
+                    $sellingPrice = $details['base_price'] + $priceModifier;
+                    $buyingPrice = $sellingPrice * 0.8; // 20% margin
+
+                    Product::create([
+                        'name' => $productName,
+                        'slug' => Str::slug($productName),
+                        'code' => IdGenerator::generate([
+                            'table' => 'products',
+                            'field' => 'code',
+                            'length' => 10,
+                            'prefix' => 'PRD-'
+                        ]),
+                        'category_id' => 1, // Smartphones
+                        'stock' => rand(5, 20),
+                        'buying_price' => $buyingPrice,
+                        'selling_price' => $sellingPrice,
+                        'buying_date' => now()->subDays(rand(1, 30)),
+                        'expire_date' => now()->addYear(),
+                        'image' => null,
+                    ]);
+                }
+            }
         }
     }
 }

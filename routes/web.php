@@ -15,8 +15,10 @@ use App\Http\Controllers\Dashboard\DatabaseBackupController;
 use App\Http\Controllers\Dashboard\HelpController;
 use App\Http\Controllers\Dashboard\OrderController;
 use App\Http\Controllers\Dashboard\PosController;
+use App\Http\Controllers\Dashboard\PurchaseController;
 use App\Http\Controllers\Dashboard\RoleController;
 use App\Http\Controllers\Dashboard\UserController;
+use App\Http\Controllers\Dashboard\PaymentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,14 +37,11 @@ Route::get('/', function () {
 
 
 // DEFAULT DASHBOARD & PROFILE
-Route::middleware('auth')->group(function () {
-    Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth'])->name('dashboard');
-
+Route::middleware(['auth'])->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/profile', [ProfileController::class, 'show'])->name('profile');
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::get('/profile/change-password', [ProfileController::class, 'changePassword'])->name('profile.change-password');
-    Route::get('/profile/delete', [ProfileController::class, 'delete'])->name('profile.delete');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
@@ -99,19 +98,32 @@ Route::middleware(['permission:category.menu'])->group(function () {
     Route::resource('/categories', CategoryController::class);
 });
 
-// ====== POS ======
-Route::middleware(['permission:pos.menu'])->group(function () {
-    Route::get('/pos', [PosController::class,'index'])->name('pos.index');
-    Route::post('/pos/add', [PosController::class, 'addCart'])->name('pos.addCart');
-    Route::post('/pos/update/{rowId}', [PosController::class, 'updateCart'])->name('pos.updateCart');
-    Route::get('/pos/delete/{rowId}', [PosController::class, 'deleteCart'])->name('pos.deleteCart');
-    Route::post('/pos/customer', [PosController::class, 'storeCustomer'])->name('pos.storeCustomer');
-    Route::get('/pos/customers-ajax', [PosController::class, 'searchCustomers'])->name('pos.customers.search');
+// POS & PAYMENTS
+Route::middleware(['auth'])->group(function () {
+    Route::get('/pos', [PosController::class, 'index'])->name('pos.index');
+    Route::post('/pos/cart/add', [PosController::class, 'addCart'])->name('pos.addCart');
+    Route::post('/pos/cart/update/{rowId}', [PosController::class, 'updateCart'])->name('pos.updateCart');
+    Route::post('/pos/cart/delete/{rowId}', [PosController::class, 'deleteCart'])->name('pos.deleteCart');
+    Route::post('/pos/create-customer', [PosController::class, 'storeCustomer'])->name('pos.storeCustomer');
+    Route::get('/pos/customers/search', [PosController::class, 'searchCustomers'])->name('pos.customers.search');
+    Route::post('/pos/create-order', [OrderController::class, 'storeOrder'])->name('pos.storeOrder');
 
-    Route::post('/pos/invoice/print', [PosController::class, 'printInvoice'])->name('pos.printInvoice');
+    // Payments
+    Route::post('/payments/store', [PaymentController::class, 'store'])->name('payment.store');
+    Route::get('/payments/receipt/{payment}', [PaymentController::class, 'receipt'])->name('payment.receipt');
+});
 
-    // Create Order
-    Route::post('/pos/order', [OrderController::class, 'storeOrder'])->name('pos.storeOrder');
+// ====== PURCHASE ======
+Route::middleware(['auth'])->group(function () {
+    Route::get('/purchase', [PurchaseController::class,'index'])->name('purchase.index');
+    Route::get('/purchase/all', [PurchaseController::class, 'allPurchases'])->name('purchase.allPurchases');
+    Route::get('/purchase/details/{purchase_id}', [PurchaseController::class, 'purchaseDetails'])->name('purchase.purchaseDetails');
+    Route::post('/purchase/add', [PurchaseController::class, 'addCart'])->name('purchase.addCart');
+    Route::post('/purchase/update/{rowId}', [PurchaseController::class, 'updateCart'])->name('purchase.updateCart');
+    Route::get('/purchase/delete/{rowId}', [PurchaseController::class, 'deleteCart'])->name('purchase.deleteCart');
+    Route::post('/purchase/supplier', [PurchaseController::class, 'storeSupplier'])->name('purchase.storeSupplier');
+    Route::get('/purchase/suppliers-ajax', [PurchaseController::class, 'searchSuppliers'])->name('purchase.suppliers.search');
+    Route::post('/purchase/store', [PurchaseController::class, 'storePurchase'])->name('purchase.storePurchase');
 });
 
 // ====== ORDERS ======

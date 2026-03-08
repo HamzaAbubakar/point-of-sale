@@ -24,19 +24,19 @@
                         <div class="card card-block card-stretch card-height">
                             <div class="card-body">
                                 <!-- Filter & Search Form -->
-                                <form action="{{ route('pos.index') }}" method="get">
+                                <form action="{{ route('purchase.index') }}" method="get">
                                     <div class="d-flex flex-wrap align-items-center justify-content-between">
                                         <!-- Search Input -->
                                         <div class="form-group row mb-0 col-md-5">
                                             <div class="input-group">
-                                                <input type="text" class="form-control" name="search" id="pos_search"
+                                                <input type="text" class="form-control" name="search" id="purchase_search"
                                                     placeholder="Search by name or barcode..." value="{{ request('search') }}" autocomplete="off">
                                                 <div class="input-group-append">
                                                     <button type="submit" class="input-group-text bg-primary text-white">
                                                         <x-heroicon-o-magnifying-glass class="w-5 h-5" />
                                                     </button>
                                                     @if (request('search') || request('category_id'))
-                                                        <a href="{{ route('pos.index') }}" class="input-group-text bg-danger text-white">
+                                                        <a href="{{ route('purchase.index') }}" class="input-group-text bg-danger text-white">
                                                                 <x-heroicon-o-x-mark class="w-5 h-5" />
                                                             </a>
                                                     @endif
@@ -100,14 +100,14 @@
 
                                             <div class="d-flex align-items-center justify-content-between mt-auto">
                                                 <h5 class="text-primary font-weight-bolder mb-0" style="font-size: 1.1rem;">
-                                                    {{ number_format($product->selling_price) }}
+                                                    {{ number_format($product->buying_price ?? $product->selling_price) }}
                                                 </h5>
 
                                                 <!-- Add to Cart Form -->
                                                 <form class="add-to-cart-form" onsubmit="addToCart(event)">
                                                     <input type="hidden" name="id" value="{{ $product->id }}">
                                                     <input type="hidden" name="name" value="{{ $product->name }}">
-                                                    <input type="hidden" name="price" value="{{ $product->selling_price }}">
+                                                    <input type="hidden" name="price" value="{{ $product->buying_price ?? $product->selling_price }}">
                                                     <button type="submit"
                                                         class="btn btn-primary btn-sm rounded-pill px-3 shadow-sm d-flex align-items-center">
                                                         <x-heroicon-o-plus class="w-4 h-4 mr-1" /> Add
@@ -142,24 +142,24 @@
                 <div class="card border-0 shadow-lg sticky-top" style="top: 20px; z-index: 100;">
                     <div class="card-header bg-primary text-white d-flex align-items-center justify-content-between p-3">
                         <h5 class="mb-0 text-white">
-                            <x-heroicon-o-shopping-cart class="w-5 h-5 mr-1 inline" /> Current Order
+                            <x-heroicon-o-shopping-cart class="w-5 h-5 mr-1 inline" /> Current Purchase
                         </h5>
                         <span class="badge badge-light text-primary font-weight-bold" id="cart-count-badge">
-                            {{ Cart::count() }} items
+                            {{ Cart::instance('purchase')->count() }} items
                         </span>
                     </div>
 
                     <div class="card-body p-0">
-                        <!-- Customer Selection -->
+                        <!-- Supplier Selection -->
                         <div class="p-4 border-bottom bg-white">
                             <div class="d-flex justify-content-between align-items-center mb-3">
-                                <label class="font-weight-bold h6 mb-0 text-dark">Customer Details</label>
-                                <button type="button" class="btn btn-sm btn-primary rounded-pill px-3 shadow-sm d-flex align-items-center" data-toggle="modal" data-target="#addCustomerModal">
+                                <label class="font-weight-bold h6 mb-0 text-dark">Supplier Details</label>
+                                <button type="button" class="btn btn-sm btn-primary rounded-pill px-3 shadow-sm d-flex align-items-center" data-toggle="modal" data-target="#addSupplierModal">
                                     <x-heroicon-o-plus class="w-4 h-4 mr-1" /> Add New
                                 </button>
                             </div>
                             <div class="form-group mb-0 position-relative">
-                                <select class="form-control select2" id="customer_id" name="customer_id" style="width: 100%;">
+                                <select class="form-control select2" id="supplier_id" name="supplier_id" style="width: 100%;">
                                     <option value="" selected disabled>Search by name or phone...</option>
                                 </select>
                             </div>
@@ -167,7 +167,7 @@
 
                         <!-- Dynamic Cart Sidebar -->
                         <div id="cart-sidebar-container">
-                            @include('pos.cart-sidebar')
+                            @include('purchase.cart-sidebar')
                         </div>
                     </div>
                     </div>
@@ -181,7 +181,7 @@
             <div class="modal-content border-0 shadow-lg" style="border-radius: 20px;">
                 <div class="modal-header bg-primary text-white"
                     style="border-top-left-radius: 20px; border-top-right-radius: 20px;">
-                    <h5 class="modal-title font-weight-bold mx-auto">Complete Payment</h5>
+                    <h5 class="modal-title font-weight-bold mx-auto">Complete Purchase</h5>
                     <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -189,14 +189,14 @@
                 <form onsubmit="submitOrder(event)">
                     @csrf
                     <div class="modal-body p-4">
-                        <input type="hidden" id="modal_customer_id" name="customer_id" required>
+                        <input type="hidden" id="modal_supplier_id" name="supplier_id" required>
 
                         <div class="table-responsive">
                             <table class="table table-borderless">
                                 <tr>
                                     <td class="text-muted font-weight-bold">Total Bill:</td>
                                     <td class="text-right font-weight-bold h5 text-primary" id="modal_total_display">
-                                        {{ Cart::total() }}
+                                        {{ Cart::instance('purchase')->total() }}
                                     </td>
                                 </tr>
                                 <tr>
@@ -209,7 +209,7 @@
                                     </td>
                                 </tr>
                                 <tr class="border-top">
-                                    <td class="text-muted font-weight-bold">Change:</td>
+                                    <td class="text-muted font-weight-bold">Due/Change:</td>
                                     <td class="text-right font-weight-bold h5 text-danger" id="modal_change_amount">0.00
                                     </td>
                                 </tr>
@@ -270,25 +270,25 @@
                             <div class="modal-footer border-top-0 d-flex justify-content-between p-4 bg-light"
                                 style="border-bottom-left-radius: 20px; border-bottom-right-radius: 20px;">
                                 <button type="button" class="btn btn-outline-secondary px-4" data-dismiss="modal">Cancel</button>
-                                <button type="submit" class="btn btn-primary px-5 shadow-sm">Confirm Payment</button>
+                                <button type="submit" class="btn btn-primary px-5 shadow-sm">Confirm Purchase</button>
                             </div>
                             </form>
                             </div>
                             </div>
                             </div>
 
-    <!-- Create Customer Modal -->
-    <div class="modal fade" id="addCustomerModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Create Supplier Modal -->
+    <div class="modal fade" id="addSupplierModal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content border-0 shadow-lg">
                 <div class="modal-header bg-primary text-white">
-                    <h5 class="modal-title font-weight-bold">Add New Customer</h5>
+                    <h5 class="modal-title font-weight-bold">Add New Supplier</h5>
                     <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <!-- AJAX Form Submission -->
-                <form onsubmit="storeCustomer(event)">
+                <form onsubmit="storeSupplier(event)">
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-md-6 form-group">
@@ -315,7 +315,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save Customer</button>
+                        <button type="submit" class="btn btn-primary">Save Supplier</button>
                     </div>
                 </form>
             </div>
@@ -336,7 +336,7 @@
                 allowClear: true,
                 width: '100%',
                 ajax: {
-                    url: "{{ route('pos.customers.search') }}",
+                    url: "{{ route('purchase.suppliers.search') }}",
                     dataType: 'json',
                     delay: 250,
                     data: function (params) {
@@ -354,9 +354,9 @@
             });
         });
 
-        // Helper: Get Selected Customer ID
-        function getCustomerId() {
-            return $('#customer_id').val();
+        // Helper: Get Selected Supplier ID
+        function getSupplierId() {
+            return $('#supplier_id').val();
         }
 
         // Logic: Add Item to Cart (AJAX)
@@ -364,12 +364,12 @@
             event.preventDefault();
             const form = event.target;
             const formData = new FormData(form);
-            const customerId = getCustomerId();
+            const supplierId = getSupplierId();
 
-            if (customerId) formData.append('customer_id', customerId);
+            if (supplierId) formData.append('supplier_id', supplierId);
 
             try {
-                const response = await fetch("{{ route('pos.addCart') }}", {
+                const response = await fetch("{{ route('purchase.addCart') }}", {
                     method: 'POST',
                     headers: {
                         'X-CSRF-TOKEN': '{{ csrf_token() }}',
@@ -391,10 +391,10 @@
 
         // Logic: Update Item Quantity (AJAX)
         async function updateCart(rowId, qty, price) {
-            const customerId = getCustomerId();
+            const supplierId = getSupplierId();
             try {
-                const response = await fetch("{{ url('pos/cart/update') }}/" + rowId, {
-                        method: 'POST',
+                const response = await fetch("{{ url('purchase/update') }}/" + rowId, {
+                    method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                         'X-CSRF-TOKEN': '{{ csrf_token() }}',
@@ -403,7 +403,7 @@
                     body: JSON.stringify({
                         qty: qty,
                         price: price,
-                        customer_id: customerId
+                        supplier_id: supplierId
                     })
                 });
                 const data = await response.json();
@@ -418,9 +418,9 @@
 
         // Logic: Remove Item from Cart (AJAX)
         async function deleteCart(rowId) {
-            const customerId = getCustomerId();
+            const supplierId = getSupplierId();
             try {
-                const response = await fetch("{{ url('pos/delete') }}/" + rowId + "?customer_id=" + (customerId || ''), {
+                const response = await fetch("{{ url('purchase/delete') }}/" + rowId + "?supplier_id=" + (supplierId || ''), {
                     method: 'GET',
                     headers: {
                         'X-CSRF-TOKEN': '{{ csrf_token() }}',
@@ -437,14 +437,14 @@
             }
         }
 
-        // Logic: Create New Customer (AJAX)
-        async function storeCustomer(event) {
+        // Logic: Create New Supplier (AJAX)
+        async function storeSupplier(event) {
             event.preventDefault();
             const form = event.target;
             const formData = new FormData(form);
 
             try {
-                const response = await fetch("{{ route('pos.storeCustomer') }}", {
+                const response = await fetch("{{ route('purchase.storeSupplier') }}", {
                     method: 'POST',
                     headers: {
                         'X-CSRF-TOKEN': '{{ csrf_token() }}',
@@ -455,21 +455,21 @@
                 const data = await response.json();
 
                 if (data.success) {
-                    // Append new customer to dropdown and select it
-                    var text = data.customer.name + ' (' + (data.customer.phone || 'N/A') + ')';
-                    var newOption = new Option(text, data.customer.id, true, true);
-                    $('#customer_id').append(newOption).trigger('change');
+                    // Append new supplier to dropdown and select it
+                    var text = data.supplier.name + ' (' + (data.supplier.phone || 'N/A') + ')';
+                    var newOption = new Option(text, data.supplier.id, true, true);
+                    $('#supplier_id').append(newOption).trigger('change');
 
                     // Close modal and reset form
-                    $('#addCustomerModal').modal('hide');
+                    $('#addSupplierModal').modal('hide');
                     form.reset();
                     alert(data.message);
                 } else {
-                    alert('Failed to create customer');
+                    alert('Failed to create supplier');
                 }
             } catch (error) {
-                console.error('Error creating customer:', error);
-                alert('Error creating customer. Please check inputs.');
+                console.error('Error creating supplier:', error);
+                alert('Error creating supplier. Please check inputs.');
             }
         }
 
@@ -499,13 +499,13 @@
 
         // Logic: Validate Payment & Show Summary Modal
         function validateAndShowModal() {
-            // 1. Ensure Customer Selected
-            var customerId = $('#customer_id').val();
-            if (!customerId) {
-                alert("Please select a customer first!");
+            // 1. Ensure Supplier Selected
+            var supplierId = $('#supplier_id').val();
+            if (!supplierId) {
+                alert("Please select a supplier first!");
                 return;
             }
-            document.getElementById('modal_customer_id').value = customerId;
+            document.getElementById('modal_supplier_id').value = supplierId;
 
             // 2. Validate Payment Amount
             const totalText = document.getElementById('cart-total').innerText;
@@ -567,7 +567,7 @@
             // Construct FormData manually since inputs are in Sidebar, not in this Form
             const formData = new FormData();
             formData.append('_token', '{{ csrf_token() }}');
-            formData.append('customer_id', document.getElementById('modal_customer_id').value);
+            formData.append('supplier_id', document.getElementById('modal_supplier_id').value);
 
             const paymentTypeElem = document.getElementById('payment_type');
             const payAmountElem = document.getElementById('pay_amount');
@@ -592,7 +592,7 @@
             }
 
             try {
-                const response = await fetch("{{ route('pos.storeOrder') }}", {
+                const response = await fetch("{{ route('purchase.storePurchase') }}", {
                     method: 'POST',
                     headers: {
                         'Accept': 'application/json'
@@ -605,11 +605,6 @@
                 if (data.success) {
                     $('#paymentModal').modal('hide');
 
-                    // Allow popup for invoice
-                    if (data.invoice_url) {
-                        window.open(data.invoice_url, '_blank');
-                    }
-
                     // Reset UI
                     if (data.cart_html) {
                         document.getElementById('cart-sidebar-container').innerHTML = data.cart_html;
@@ -620,68 +615,56 @@
                         document.getElementById('cart-count-badge').innerText = data.cart_count + ' items';
                     }
 
-                    // Optional: Reset Pay Input
-                    if (payAmountElem) payAmountElem.value = '';
-                    if (document.getElementById('change_amount')) document.getElementById('change_amount').innerText =
-                        '0.00';
+                    alert('Purchase Successful!');
 
-                    alert('Order Successful!');
+                    window.location.reload();
 
                 } else {
-                    alert('Order Failed: ' + (data.message || 'Unknown error'));
+                    alert('Purchase Failed: ' + (data.message || 'Unknown error'));
                 }
             } catch (error) {
-                console.error('Error submitting order:', error);
-                alert('An error occurred while processing the order.');
+                console.error('Error submitting purchase:', error);
+                alert('An error occurred while processing the purchase.');
             }
         }
 
         // Barcode Scanner Handling for POS Search
         (function() {
-            const posSearchField = document.getElementById('pos_search');
+            const posSearchField = document.getElementById('purchase_search');
             const searchForm = posSearchField ? posSearchField.closest('form') : null;
 
             if (posSearchField && searchForm) {
                 let scannerTimeout;
 
-                // Auto-focus search field on mobile devices
                 function isMobileDevice() {
                     return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ||
                            (window.innerWidth <= 768);
                 }
 
-                // Handle scanner input (scanners typically send Enter after barcode)
                 posSearchField.addEventListener('keydown', function(e) {
                     if (e.key === 'Enter' || e.keyCode === 13) {
-                        // Clear any existing timeout
                         if (scannerTimeout) {
                             clearTimeout(scannerTimeout);
                         }
 
                         const searchValue = posSearchField.value.trim();
                         if (searchValue) {
-                            // Check if this looks like a barcode scan (fast input + Enter)
-                            // Barcode scanners typically input very quickly
                             scannerTimeout = setTimeout(function() {
-                                // Submit the form to search
                                 searchForm.submit();
                             }, 100);
                         }
                     }
                 });
 
-                // Handle paste events (some scanners use paste)
                 posSearchField.addEventListener('paste', function(e) {
                     setTimeout(function() {
                         const pastedValue = posSearchField.value.trim();
                         if (pastedValue) {
-                            // Auto-submit on paste (likely from scanner)
                             searchForm.submit();
                         }
                     }, 50);
                 });
 
-                // Auto-focus on mobile for better scanner experience
                 if (isMobileDevice()) {
                     setTimeout(function() {
                         posSearchField.focus();

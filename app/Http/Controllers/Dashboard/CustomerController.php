@@ -53,8 +53,11 @@ class CustomerController extends Controller
      */
     public function show(Customer $customer): View
     {
+        $orders = $customer->orders()->orderBy('created_at', 'desc')->get();
+
         return view('customers.show', [
             'customer' => $customer,
+            'orders' => $orders,
         ]);
     }
 

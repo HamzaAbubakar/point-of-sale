@@ -1,5 +1,5 @@
 <!--
-    POS Cart Sidebar Component
+    Purchase Cart Sidebar Component
     Handles display of cart items, totals, and payment inputs.
 -->
 
@@ -54,7 +54,7 @@
             <div class="bg-light rounded-circle p-3 mb-3">
                 <x-heroicon-o-shopping-bag class="w-8 h-8 text-secondary" />
             </div>
-            <p class="mb-0 font-weight-medium">Cart is empty</p>
+            <p class="mb-0 font-weight-medium">Purchase list is empty</p>
             <small>Select products to add</small>
         </div>
     @endif
@@ -64,21 +64,21 @@
 <div class="p-4 bg-white border-top">
     <div class="d-flex justify-content-between mb-2">
         <span class="text-secondary small">Subtotal</span>
-        <span class="font-weight-bold">{{ Cart::subtotal() }}</span>
+        <span class="font-weight-bold">{{ Cart::instance('purchase')->subtotal() }}</span>
     </div>
     <div class="d-flex justify-content-between mb-3">
         <span class="text-secondary small">Tax</span>
-        <span class="font-weight-bold">{{ Cart::tax() }}</span>
+        <span class="font-weight-bold">{{ Cart::instance('purchase')->tax() }}</span>
     </div>
     <div class="d-flex justify-content-between align-items-center pt-3 border-top border-dashed">
         <span class="h6 font-weight-bold text-dark mb-0">Total</span>
-        <span class="h4 font-weight-bolder text-primary mb-0" id="cart-total">{{ Cart::total() }}</span>
+        <span class="h4 font-weight-bolder text-primary mb-0" id="cart-total">{{ Cart::instance('purchase')->total() }}</span>
     </div>
 </div>
 
 <!-- Payment Section -->
 <div class="p-3 bg-white border-top">
-    @if (Cart::count() > 0)
+    @if (Cart::instance('purchase')->count() > 0)
         <div class="row">
             <!-- Payment Method -->
             <div class="col-6 pr-1">
@@ -93,7 +93,7 @@
             <!-- Amount Received Input -->
             <div class="col-6 pl-1">
                 <div class="form-group mb-2">
-                    <label class="small font-weight-bold text-muted mb-1">Received</label>
+                    <label class="small font-weight-bold text-muted mb-1">Pay Amount</label>
                     <input type="number" class="form-control form-control-sm" id="pay_amount" placeholder="0"
                         oninput="calculateChange()" min="0">
                 </div>
@@ -102,7 +102,7 @@
 
         <!-- Change Display -->
         <div class="d-flex justify-content-between align-items-center mb-3 px-2 py-2 bg-light rounded">
-            <span class="small font-weight-bold text-muted">Change</span>
+            <span class="small font-weight-bold text-muted">Due/Change</span>
             <span class="font-weight-bold text-success" id="change_amount">0.00</span>
         </div>
 
@@ -110,13 +110,13 @@
         <button type="button"
             class="btn btn-primary btn-lg btn-block rounded-pill shadow-lg d-flex align-items-center justify-content-center"
             onclick="validateAndShowModal()">
-            <span class="mr-2">Confirm Payment</span>
+            <span class="mr-2">Confirm Purchase</span>
             <x-heroicon-o-arrow-right class="w-5 h-5" />
         </button>
     @else
         <!-- Disabled Button -->
         <button type="button" class="btn btn-light btn-lg btn-block rounded-pill text-muted" disabled>
-            Start Sale
+            Start Purchase
         </button>
     @endif
 </div>

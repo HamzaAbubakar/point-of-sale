@@ -52,8 +52,11 @@ class SupplierController extends Controller
      */
     public function show(Supplier $supplier)
     {
+        $purchases = $supplier->purchases()->orderBy('created_at', 'desc')->get();
+        
         return view('suppliers.show', [
             'supplier' => $supplier,
+            'purchases' => $purchases,
         ]);
     }
 

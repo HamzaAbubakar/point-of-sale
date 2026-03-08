@@ -21,3 +21,24 @@ svg.w-5 { width: 1.25rem; }
 svg.h-5 { height: 1.25rem; }
 svg.w-6 { width: 1.5rem; }
 svg.h-6 { height: 1.5rem; }
+
+/* Global AJAX Loader */
+#global-loader {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.7); /* Semi-transparent white backdrop */
+    z-index: 99999; /* Ensure it's on top of everything, including modals */
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(2px); /* Optional: Adds a blur effect to the background */
+}
+
+#global-loader .loader-img {
+    width: 80px; /* Adjust size as needed */
+    height: auto;
+    z-index: 100000; /* Ensure the spinner is above the backdrop */
+}

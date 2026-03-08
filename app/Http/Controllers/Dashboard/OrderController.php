@@ -111,6 +111,9 @@ class OrderController extends Controller
                 'payment_type' => $request->payment_type,
                 'pay_amount' => $pay_amount,
                 'due_amount' => $due_amount,
+                'bank_name' => $request->bank_name,
+                'pay_transaction_id' => $request->pay_transaction_id,
+                'pay_date' => $request->pay_date,
             ]);
 
             // Create Order Details

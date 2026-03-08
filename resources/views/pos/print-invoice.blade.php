@@ -107,6 +107,12 @@
                                         <td class="text-muted">Change</td>
                                         <td class="text-dark text-right font-weight-bold">{{ number_format($order->due_amount < 0 ? abs($order->due_amount) : 0, 2) }}</td>
                                     </tr>
+                                    @if($order->due_amount > 0)
+                                    <tr>
+                                        <td class="text-danger">Due Amount</td>
+                                        <td class="text-danger text-right font-weight-bold">{{ number_format($order->due_amount, 2) }}</td>
+                                    </tr>
+                                    @endif
                                 </table>
                             </div>
                         </div>

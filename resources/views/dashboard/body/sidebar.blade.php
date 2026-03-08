@@ -27,6 +27,26 @@
                             </li>
                 @endif
 
+                <li class="{{ Request::is('purchase*') ? 'active' : '' }}">
+                    <a href="#purchase" class="collapsed" data-toggle="collapse" aria-expanded="false">
+                        <x-heroicon-o-shopping-bag class="w-6 h-6" />
+                        <span class="ml-3">Purchase</span>
+                        <x-heroicon-o-chevron-right class="w-4 h-4 iq-arrow-right arrow-active" />
+                    </a>
+                    <ul id="purchase" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle">
+                        <li class="{{ Request::is(['purchase']) ? 'active' : '' }}">
+                            <a href="{{ route('purchase.index') }}">
+                                <x-heroicon-o-arrow-right class="w-4 h-4" /><span>Add Purchase</span>
+                            </a>
+                        </li>
+                        <li class="{{ Request::is(['purchase/all']) ? 'active' : '' }}">
+                            <a href="{{ route('purchase.allPurchases') }}">
+                                <x-heroicon-o-arrow-right class="w-4 h-4" /><span>All Purchases</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
                 <hr>
 
                 @if (auth()->user()->can('orders.menu'))

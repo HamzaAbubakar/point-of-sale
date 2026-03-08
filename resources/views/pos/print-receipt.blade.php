@@ -187,6 +187,12 @@
                 <span>Change</span>
                 <span>{{ number_format($order->due_amount < 0 ? abs($order->due_amount) : 0, 0, ',', '.') }}</span>
             </div>
+            @if($order->due_amount > 0)
+            <div class="d-flex justify-between mt-1">
+                <span style="color: red;">Due Amount</span>
+                <span style="color: red;">{{ number_format($order->due_amount, 0, ',', '.') }}</span>
+            </div>
+            @endif
         </div>
 
         <!-- Footer -->

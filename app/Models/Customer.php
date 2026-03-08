@@ -27,4 +27,14 @@ class Customer extends Model
             return $query->where('name', 'like', '%' . $search . '%');
         });
     }
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
+
+    public function payments()
+    {
+        return $this->hasMany(Payment::class);
+    }
 }

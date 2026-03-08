@@ -14,14 +14,7 @@ class CategorySeeder extends Seeder
     public function run(): void
     {
         $categories = [
-            'Computers & Laptops',
-            'Smartphones & Tablets',
-            'Computer Accessories',
-            'Smartwatches',
-            'Cameras & Audio',
-            'Networking Devices',
-            'Gaming Gear',
-            'Office Supplies'
+            'Smartphones',
         ];
 
         foreach ($categories as $category) {

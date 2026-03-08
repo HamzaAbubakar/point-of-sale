@@ -79,9 +79,10 @@ class PosController extends Controller
     {
         $validatedData = $request->validate([
             'qty' => 'required|numeric',
+            'price' => 'required|numeric',
         ]);
 
-        Cart::update($rowId, $validatedData['qty']);
+        Cart::update($rowId, ['qty' => $validatedData['qty'], 'price' => $validatedData['price']]);
 
         if ($request->wantsJson()) {
             return response()->json([

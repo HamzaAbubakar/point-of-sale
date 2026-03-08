@@ -21,10 +21,14 @@ class Order extends Model
         'payment_type',
         'pay_amount',
         'due_amount',
+        'bank_name',
+        'pay_transaction_id',
+        'pay_date',
     ];
 
     protected $casts = [
         'order_date' => 'datetime',
+        'pay_date' => 'date',
         'sub_total' => 'float',
         'vat' => 'float',
         'total' => 'float',

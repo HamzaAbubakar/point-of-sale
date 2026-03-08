@@ -17,10 +17,15 @@
 
 <body>
     <!-- loader Start -->
-    {{-- <div id="loading">
+    <div id="loading">
         <div id="loading-center"></div>
-    </div> --}}
+    </div>
     <!-- loader END -->
+
+    <!-- Global Ajax Loader -->
+    <div id="global-loader">
+        <img src="{{ asset('assets/images/loader.gif') }}" alt="Loading..." class="loader-img">
+    </div>
 
     <!-- Wrapper Start -->
     <div class="wrapper">
@@ -38,6 +43,31 @@
 
     <!-- Backend Bundle JavaScript -->
     <script src="{{ asset('assets/js/backend-bundle.min.js') }}"></script>
+
+    <!-- Global AJAX Loader Script -->
+    <script>
+        // jQuery Ajax Events
+        $(document).ajaxStart(function() {
+            $('#global-loader').css('display', 'flex');
+        });
+        $(document).ajaxStop(function() {
+            $('#global-loader').hide();
+        });
+
+        // Intercept Fetch API
+        const originalFetch = window.fetch;
+        window.fetch = async function(...args) {
+            $('#global-loader').css('display', 'flex');
+            try {
+                const response = await originalFetch(...args);
+                return response;
+            } catch (error) {
+                throw error;
+            } finally {
+                $('#global-loader').hide();
+            }
+        };
+    </script>
 
     @yield('specificpagescripts')
 
