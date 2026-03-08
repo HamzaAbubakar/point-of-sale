@@ -91,7 +91,7 @@
                                         @csrf
                                         <input type="hidden" name="id" value="{{ $order->id }}">
 
-                                        <a class="btn btn-outline-danger mr-2" href="{{ route('order.pendingOrders') }}">
+                                        <a class="btn btn-outline-danger mr-2" href="{{ route('order.completeOrders') }}">
                                             <x-heroicon-o-x-mark class="w-5 h-5 mr-1 inline" /> Cancel
                                         </a>
 

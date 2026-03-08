@@ -109,9 +109,9 @@
 
         <!-- Header -->
         <div class="header text-center mb-3">
-            <h2 class="font-bold text-uppercase">POS SHOP</h2>
-            <p>123 Commerce Avenue, Jakarta</p>
-            <p>Tel: +62 812 3456 7890</p>
+            <h2 class="font-bold text-uppercase">Apple Point</h2>
+            <p>Shop#14A, Al Mustafa Arcade, Saddar Cantt: Hyd</p>
+            <p>Tel: 0334 3981448, 0333 2981464</p>
         </div>
 
         <div class="dashed-line"></div>

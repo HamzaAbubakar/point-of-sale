@@ -103,7 +103,8 @@ class OrderController extends Controller
                 'customer_id' => $request->customer_id,
                 'invoice_no' => $invoice_no,
                 'order_date' => Carbon::now(),
-                'order_status' => 'pending',
+                // create order as complete immediately (no pending state)
+                'order_status' => 'complete',
                 'total_products' => Cart::count(),
                 'sub_total' => (float) Cart::subtotal(null, null, ''),
                 'vat' => (float) Cart::tax(null, null, ''),
@@ -116,7 +117,7 @@ class OrderController extends Controller
                 'pay_date' => $request->pay_date,
             ]);
 
-            // Create Order Details
+            // Create Order Details and decrement stock immediately since order is complete
             $contents = Cart::content();
             foreach ($contents as $content) {
                 OrderDetails::create([
@@ -126,6 +127,10 @@ class OrderController extends Controller
                     'unit_price' => $content->price,
                     'total' => $content->total,
                 ]);
+
+                // Decrease product stock right away
+                Product::where('id', $content->id)
+                    ->decrement('stock', $content->qty);
             }
 
             // Clear Cart
@@ -181,7 +186,8 @@ class OrderController extends Controller
             Order::findOrFail($order_id)->update(['order_status' => 'complete']);
         });
 
-        return Redirect::route('order.pendingOrders')->with('success', 'Order has been completed!');
+    // After completing an order, go to the complete orders list (pending UI removed)
+    return Redirect::route('order.completeOrders')->with('success', 'Order has been completed!');
     }
 
     public function invoiceDownload(int $order_id)

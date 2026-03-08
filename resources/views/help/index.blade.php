@@ -42,15 +42,15 @@
             <div class="flex flex-wrap items-center justify-between mb-8">
                 <div>
                     <h2 class="text-3xl font-bold text-gray-800 mb-2">Help & Documentation</h2>
-                    <p class="text-gray-600">Comprehensive guide to POSDash - Your Point of Sale Management System</p>
+                    <p class="text-gray-600">Comprehensive guide to Apple Point POS - Your Point of Sale Management System</p>
                 </div>
             </div>
 
             <!-- Introduction Card -->
             <div class="bg-white rounded-lg shadow-md p-6 mb-8 border border-gray-200">
-                <h3 class="text-xl font-semibold text-gray-800 mb-3">About POSDash</h3>
+                <h3 class="text-xl font-semibold text-gray-800 mb-3">About Apple Point POS</h3>
                 <p class="text-gray-700 leading-relaxed">
-                    POSDash is a robust, enterprise-grade Point of Sale (POS) management system designed for efficiency and ease of use.
+                    Apple Point POS is a robust, enterprise-grade Point of Sale (POS) management system designed for efficiency and ease of use.
                     This application provides comprehensive tools for managing sales, inventory, employees, customers, and financial operations
                     all in one integrated platform.
                 </p>

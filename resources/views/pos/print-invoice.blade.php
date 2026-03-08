@@ -30,9 +30,9 @@
                         <!-- Company Header -->
                         <div class="row mb-5">
                             <div class="col-6">
-                                <h3 class="font-weight-bold text-dark mb-1">POS SHOP</h3>
-                                <p class="text-muted mb-0">123 Commerce Avenue</p>
-                                <p class="text-muted">Jakarta, Indonesia</p>
+                                <h3 class="font-weight-bold text-dark mb-1">Apple Point</h3>
+                                <p class="text-muted mb-0">Shop#14A, Al Mustafa Arcade</p>
+                                <p class="text-muted">Saddar Cantt: Hyd</p>
                             </div>
                             <div class="col-6 text-right">
                                 <h6 class="text-uppercase text-muted font-weight-bold letter-spacing-2 mb-2">Invoice</h6>

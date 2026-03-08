@@ -625,7 +625,8 @@
                     if (document.getElementById('change_amount')) document.getElementById('change_amount').innerText =
                         '0.00';
 
-                    alert('Order Successful!');
+                    //reload the page to reset all states and reflect any changes
+                    location.reload();
 
                 } else {
                     alert('Order Failed: ' + (data.message || 'Unknown error'));

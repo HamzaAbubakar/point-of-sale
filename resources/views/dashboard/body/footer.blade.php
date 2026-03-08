@@ -10,7 +10,7 @@
                         </ul>
                     </div>
                     <div class="col-lg-6 text-right">
-                        <span class="mr-1">&copy; {{ date('Y') }}</span> <a href="{{ route('dashboard') }}" class="">POS Dash</a>.
+                        <span class="mr-1">&copy; {{ date('Y') }}</span> <a href="{{ route('dashboard') }}" class="">Apple Point POS</a>.
                     </div>
                 </div>
             </div>

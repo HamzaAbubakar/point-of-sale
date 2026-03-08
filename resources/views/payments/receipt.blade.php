@@ -76,7 +76,7 @@
 
     <div class="receipt-container">
         <div class="header text-center mb-3">
-            <h2 class="font-bold text-uppercase">POS SHOP</h2>
+            <h2 class="font-bold text-uppercase">Apple Point</h2>
             <p>PAYMENT RECEIPT</p>
         </div>
 
@@ -106,7 +106,7 @@
             <span>Method:</span>
             <span>{{ $payment->payment_method }}</span>
         </div>
-        
+
         @if($payment->note)
         <div class="mt-2">
             <p class="font-bold">Note:</p>

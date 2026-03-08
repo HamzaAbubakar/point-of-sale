@@ -2,7 +2,7 @@
 <div class="iq-sidebar sidebar-default ">
     <div class="iq-sidebar-logo d-flex align-items-center justify-content-between">
         <a href="{{ route('dashboard') }}" class="header-logo">
-            <img src="{{ asset('assets/images/logo.png') }}" class="img-fluid rounded-normal light-logo" alt="logo"><h5 class="logo-title light-logo ml-3">POSDash</h5>
+            <img src="{{ asset('assets/images/logo.png') }}" class="img-fluid rounded-normal light-logo" alt="logo"><h5 class="logo-title light-logo ml-3">Apple Point POS</h5>
         </a>
         <div class="iq-menu-bt-sidebar ml-0">
             <x-heroicon-o-bars-3 class="wrapper-menu w-8 h-8" />
@@ -50,33 +50,13 @@
                 <hr>
 
                 @if (auth()->user()->can('orders.menu'))
-                    <li>
-                        <a href="#orders" class="collapsed" data-toggle="collapse" aria-expanded="false">
-                            <x-heroicon-o-shopping-bag class="w-6 h-6" />
-                            <span class="ml-3">Orders</span>
-                            <x-heroicon-o-chevron-right class="w-4 h-4 iq-arrow-right arrow-active" />
-                            </a>
-                            <ul id="orders" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle">
-
-                            <li class="{{ Request::is('orders/pending*') ? 'active' : '' }}">
-                                <a href="{{ route('order.pendingOrders') }}">
-                                    <x-heroicon-o-arrow-right class="w-4 h-4" /><span>Pending Orders</span>
+                            <li class="{{ Request::is('orders/complete*') ? 'active' : '' }}">
+                                <a href="{{ route('order.completeOrders') }}" class="svg-icon">
+                                    <x-heroicon-o-shopping-cart class="w-6 h-6" />
+                                    <span class="ml-3">Orders</span>
                                     </a>
-                                    </li>
-                                    <li class="{{ Request::is('orders/complete*') ? 'active' : '' }}">
-                                        <a href="{{ route('order.completeOrders') }}">
-                                    <x-heroicon-o-arrow-right class="w-4 h-4" /><span>Complete Orders</span>
-                                    </a>
-                                    </li>
-                                    <li class="{{ Request::is('pending/due*') ? 'active' : '' }}">
-                                        <a href="{{ route('order.pendingDue') }}">
-                                    <x-heroicon-o-arrow-right class="w-4 h-4" /><span>Pending Due</span>
-                                    </a>
-                                    </li>
-
-                                    </ul>
-                                    </li>
-                @endif
+                            </li>
+                    @endif
 
                 @if (auth()->user()->can('product.menu'))
                     <li>
@@ -108,7 +88,7 @@
                 <hr>
 
                 @if (auth()->user()->can('employee.menu'))
-                    <li class="{{ Request::is('employees*') ? 'active' : '' }}">
+                    <li class="{{ Request::is('employees*') ? 'active' : '' }} d-none">
                         <a href="{{ route('employees.index') }}" class="svg-icon">
                             <x-heroicon-o-user-group class="w-6 h-6" />
                             <span class="ml-3">Employees</span>
@@ -136,7 +116,7 @@
 
                 @if (auth()->user()->can('salary.menu'))
                     <li>
-                        <a href="#advance-salary" class="collapsed" data-toggle="collapse" aria-expanded="false">
+                        <a href="#advance-salary" class="collapsed d-none" data-toggle="collapse" aria-expanded="false">
                         <x-heroicon-o-banknotes class="w-6 h-6" />
                         <span class="ml-3">Salary</span>
                         <x-heroicon-o-chevron-right class="w-4 h-4 iq-arrow-right arrow-active" />
@@ -169,7 +149,7 @@
 
                 @if (auth()->user()->can('attendance.menu'))
                     <li>
-                        <a href="#attendance" class="collapsed" data-toggle="collapse" aria-expanded="false">
+                        <a href="#attendance" class="collapsed d-none" data-toggle="collapse" aria-expanded="false">
                             <x-heroicon-o-calendar-days class="w-6 h-6" />
                             <span class="ml-3">Attendance</span>
                             <x-heroicon-o-chevron-right class="w-4 h-4 iq-arrow-right arrow-active" />

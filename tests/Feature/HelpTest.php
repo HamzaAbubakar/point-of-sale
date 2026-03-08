@@ -44,7 +44,7 @@ class HelpTest extends TestCase
         $response->assertOk();
         $response->assertSee('Help', false);
         $response->assertSee('Documentation', false);
-        $response->assertSee('About POSDash', false);
+        $response->assertSee('About Apple Point POS', false);
         $response->assertSee('Point of Sale', false);
         $response->assertSee('Product', false);
         $response->assertSee('Inventory', false);

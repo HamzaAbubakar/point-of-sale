@@ -92,24 +92,7 @@
                 </div>
             </div>
 
-            <div class="col-lg-3 col-md-6">
-                <div class="card card-block card-stretch card-height">
-                    <div class="card-body">
-                        <div class="d-flex align-items-center mb-4 card-total-sale">
-                            <div class="icon iq-icon-box-2 bg-warning-light">
-                                <x-heroicon-o-clock class="w-6 h-6 text-warning" />
-                            </div>
-                            <div>
-                                <p class="mb-2">Pending Orders</p>
-                                <h4>{{ $pending_orders }}</h4>
-                            </div>
-                        </div>
-                        <div class="iq-progress-bar mt-2">
-                            <span class="bg-warning iq-progress progress-1" data-percent="25" style="width: 25%;"></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <!-- Pending Orders card removed (pending orders UI removed) -->
 
             <!-- Sales Chart -->
             <div class="col-lg-12">
@@ -133,7 +116,7 @@
                             <h4 class="card-title">Recent Orders</h4>
                         </div>
                         <div class="card-header-toolbar d-flex align-items-center">
-                            <a href="{{ route('order.pendingOrders') }}"
+                            <a href="{{ route('order.completeOrders') }}"
                                 class="btn btn-outline-primary position-relative text-nowrap">View All</a>
                         </div>
                     </div>
