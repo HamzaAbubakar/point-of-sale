@@ -37,4 +37,21 @@ class Supplier extends Model
     {
         return $this->hasMany(Payment::class);
     }
+
+    /**
+     * Get remaining due for the supplier.
+     * Calculated as total of purchases minus total of payments made to the supplier.
+     */
+    public function getRemainingDueAttribute()
+    {
+        // Use purchases.due_amount so partial payments recorded on the purchase itself are considered
+        // Then subtract standalone payments from the payments table (type = 'debit') which
+        // represent payments made to suppliers.
+        $purchasesDue = (float) $this->purchases()->sum('due_amount');
+        $paymentsTotal = (float) $this->payments()->where('type', 'debit')->sum('amount');
+
+        $remaining = $purchasesDue - $paymentsTotal;
+
+        return $remaining > 0 ? $remaining : 0.0;
+    }
 }

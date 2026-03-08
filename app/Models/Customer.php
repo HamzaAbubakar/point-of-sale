@@ -37,4 +37,28 @@ class Customer extends Model
     {
         return $this->hasMany(Payment::class);
     }
+
+    /**
+     * Get remaining due for the customer.
+     * Calculated as total of orders minus total of payments received from the customer.
+     */
+    public function getRemainingDueAttribute()
+    {
+        // Use orders.due_amount so partial payments recorded on the order itself are considered
+        // Then subtract any standalone payments from the payments table (type = 'credit')
+        // to include payments recorded outside of order-level allocations.
+        $ordersDue = (float) $this->orders()->sum('due_amount');
+        $paymentsTotal = (float) $this->payments()->where('type', 'credit')->sum('amount');
+
+        $remaining = $ordersDue - $paymentsTotal;
+
+        // Do not return negative due; if overpaid, show 0.00 (or change to allow negatives if you prefer)
+        return $remaining > 0 ? $remaining : 0.0;
+    }
+
+    /**
+     * Get remaining due for the customer.
+     * Calculated as total of orders minus total of payments made by the customer.
+     */
+    // duplicate accessor removed; see the earlier getRemainingDueAttribute above
 }

@@ -47,6 +47,15 @@
                                             <span class="mb-0">{{ $supplier->city ?? 'Unknown' }}</span>
                                         </div>
                                     </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                                        <div class="d-flex align-items-center">
+                                            <x-heroicon-o-currency-dollar class="w-6 h-6 mr-3 text-primary" />
+                                            <div>
+                                                <small class="text-muted">Remaining Due</small>
+                                                <div class="font-weight-bold">{{ number_format($supplier->remaining_due, 2) }}</div>
+                                            </div>
+                                        </div>
+                                    </li>
                                 </ul>
                             </div>
 
@@ -113,7 +122,15 @@
                                             <td data-sort="{{ $purchase->purchase_date }}">{{ $purchase->purchase_date->format('Y-m-d H:i') }}</td>
                                             <td><span class="badge badge-primary">Purchase</span></td>
                                             <td>{{ $purchase->purchase_no }}</td>
-                                            <td class="text-danger font-weight-bold">- {{ number_format($purchase->total, 2) }}</td>
+                                            @if($purchase->due_amount > 0)
+                                                <td class="text-danger font-weight-bold">- {{ number_format($purchase->due_amount, 2) }}
+                                                    @if($purchase->pay_amount > 0)
+                                                        <div class="small text-success">({{ number_format($purchase->pay_amount, 2) }} paid)</div>
+                                                    @endif
+                                                </td>
+                                            @else
+                                                <td class="text-success font-weight-bold">- {{ number_format($purchase->pay_amount, 2) }} <small class="text-muted">(paid)</small></td>
+                                            @endif
                                             <td>{{ $purchase->payment_type }}</td>
                                             <td>
                                                 <a class="btn btn-info btn-sm" href="{{ route('purchase.purchaseDetails', $purchase->id) }}">
