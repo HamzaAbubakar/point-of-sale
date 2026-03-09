@@ -11,8 +11,16 @@ use Illuminate\Support\Facades\Redirect;
 class DatabaseBackupController extends Controller
 {    public function index()
     {
+        // use Laravel's default storage/app directory instead of a custom POS folder
+        $dir = storage_path('app');
+
+        // ensure directory exists (it always should in a fresh installation)
+        if (! File::exists($dir)) {
+            File::makeDirectory($dir, 0755, true);
+        }
+
         return view('database.index', [
-            'files' => File::allFiles(storage_path('/app/POS'))
+            'files' => File::allFiles($dir)
         ]);
     }
 
@@ -25,14 +33,16 @@ class DatabaseBackupController extends Controller
 
     public function download(String $getFileName)
     {
-        $path = storage_path('app\POS/' . $getFileName);
+        // files are stored directly in storage/app
+        $path = storage_path('app/' . $getFileName);
 
         return response()->download($path);
     }
 
     public function delete(String $getFileName)
     {
-        Storage::delete('POS/' . $getFileName);
+        // Storage::delete uses the default "local" disk which maps to storage/app
+        Storage::delete($getFileName);
 
         return Redirect::route('backup.index')->with('success', 'Database Deleted Successfully!');
     }
