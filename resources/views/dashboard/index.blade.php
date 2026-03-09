@@ -137,7 +137,7 @@
                                         <tr>
                                             <td>{{ $order->created_at->format('d M Y') }}</td>
                                             <td>{{ $order->customer->name ?? 'Walk-in Customer' }}</td>
-                                            <td>${{ number_format($order->total, 2) }}</td>
+                                            <td>Rs.{{ number_format($order->total, 2) }}</td>
                                             <td>
                                                 <span
                                                     class="badge {{ $order->order_status == 'complete' ? 'bg-success' : 'bg-warning' }}">
