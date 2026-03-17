@@ -52,7 +52,15 @@
                                             <x-heroicon-o-currency-dollar class="w-6 h-6 mr-3 text-primary" />
                                             <div>
                                                 <small class="text-muted">Remaining Due</small>
-                                                <div class="font-weight-bold">{{ number_format($customer->remaining_due, 2) }}</div>
+                                                @php
+                                                    $due = $customer->remaining_due;
+                                                @endphp
+                                                <div class="font-weight-bold {{ $due < 0 ? 'text-success' : 'text-danger' }}">
+                                                    {{ number_format(abs($due), 2) }}
+                                                    @if($due < 0)
+                                                        <span class="small text-success">(Overpaid)</span>
+                                                    @endif
+                                                </div>
                                             </div>
                                         </div>
                                     </li>

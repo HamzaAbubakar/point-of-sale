@@ -50,10 +50,7 @@ class Customer extends Model
         $ordersDue = (float) $this->orders()->sum('due_amount');
         $paymentsTotal = (float) $this->payments()->where('type', 'credit')->sum('amount');
 
-        $remaining = $ordersDue - $paymentsTotal;
-
-        // Do not return negative due; if overpaid, show 0.00 (or change to allow negatives if you prefer)
-        return $remaining > 0 ? $remaining : 0.0;
+        return $ordersDue - $paymentsTotal;
     }
 
     /**

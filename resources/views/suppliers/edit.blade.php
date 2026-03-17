@@ -29,9 +29,9 @@
                                 </div>
 
                                 <div class="form-group col-md-6">
-                                    <label for="email">Supplier Email <span class="text-danger">*</span></label>
+                                    <label for="email">Supplier Email</label>
                                     <input type="text" class="form-control @error('email') is-invalid @enderror" id="email" name="email"
-                                        value="{{ old('email', $supplier->email) }}" required>
+                                        value="{{ old('email', $supplier->email) }}">
                                     @error('email')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -51,9 +51,9 @@
                                 </div>
 
                                 <div class="form-group col-md-6">
-                                    <label for="city">Supplier City <span class="text-danger">*</span></label>
+                                    <label for="city">Supplier City</label>
                                     <input type="text" class="form-control @error('city') is-invalid @enderror" id="city" name="city"
-                                        value="{{ old('city', $supplier->city) }}" required>
+                                        value="{{ old('city', $supplier->city) }}">
                                     @error('city')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -62,9 +62,8 @@
                                 </div>
 
                                 <div class="form-group col-md-12">
-                                    <label for="address">Supplier Address <span class="text-danger">*</span></label>
-                                    <textarea class="form-control @error('address') is-invalid @enderror" name="address"
-                                        required>{{ old('address', $supplier->address) }}</textarea>
+                                    <label for="address">Supplier Address</label>
+                                    <textarea class="form-control @error('address') is-invalid @enderror" name="address">{{ old('address', $supplier->address) }}</textarea>
                                     @error('address')
                                         <div class="invalid-feedback">
                                             {{ $message }}

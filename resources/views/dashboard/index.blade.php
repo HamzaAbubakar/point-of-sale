@@ -92,7 +92,56 @@
                 </div>
             </div>
 
-            <!-- Pending Orders card removed (pending orders UI removed) -->
+            <!-- Expense Summary Cards -->
+            <div class="col-lg-12">
+                <div class="row">
+                    <div class="col-lg-4 col-md-6">
+                        <div class="card card-block card-stretch card-height">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center mb-4 card-total-sale">
+                                    <div class="icon iq-icon-box-2 bg-warning-light">
+                                        <x-heroicon-o-currency-dollar class="w-6 h-6 text-warning" />
+                                    </div>
+                                    <div>
+                                        <p class="mb-2">Today's Expenses</p>
+                                        <h4>Rs.{{ number_format($today_expense, 2) }}</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="card card-block card-stretch card-height">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center mb-4 card-total-sale">
+                                    <div class="icon iq-icon-box-2 bg-secondary-light">
+                                        <x-heroicon-o-currency-dollar class="w-6 h-6 text-secondary" />
+                                    </div>
+                                    <div>
+                                        <p class="mb-2">This Week's Expenses</p>
+                                        <h4>Rs.{{ number_format($weekly_expense, 2) }}</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="card card-block card-stretch card-height">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center mb-4 card-total-sale">
+                                    <div class="icon iq-icon-box-2 bg-dark-light">
+                                        <x-heroicon-o-currency-dollar class="w-6 h-6 text-dark" />
+                                    </div>
+                                    <div>
+                                        <p class="mb-2">This Month's Expenses</p>
+                                        <h4>Rs.{{ number_format($monthly_expense, 2) }}</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <!-- Sales Chart -->
             <div class="col-lg-12">

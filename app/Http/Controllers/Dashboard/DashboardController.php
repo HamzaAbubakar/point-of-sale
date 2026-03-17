@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Dashboard;
 
+use App\Models\Expense;
 use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -19,6 +20,17 @@ class DashboardController extends Controller
 
         // 2. Today's Snapshot
         $today_sales = Order::whereDate('created_at', \Carbon\Carbon::today())->sum('total');
+
+        // 3. Expense Summary (today, this week, this month)
+        $today_expense = Expense::whereDate('date', \Carbon\Carbon::today())->sum('amount');
+
+        $weekStart = \Carbon\Carbon::today()->startOfWeek();
+        $weekEnd = \Carbon\Carbon::today()->endOfWeek();
+        $weekly_expense = Expense::whereBetween('date', [$weekStart, $weekEnd])->sum('amount');
+
+        $monthly_expense = Expense::whereYear('date', now()->year)
+            ->whereMonth('date', now()->month)
+            ->sum('amount');
 
         // 3. Top 5 Best Selling Products (by Quantity Sold)
         $top_products = \Illuminate\Support\Facades\DB::table('order_details')
@@ -63,6 +75,9 @@ class DashboardController extends Controller
             'complete_orders' => $complete_orders,
             'pending_orders' => $pending_orders,
             'today_sales' => $today_sales,
+            'today_expense' => $today_expense,
+            'weekly_expense' => $weekly_expense,
+            'monthly_expense' => $monthly_expense,
             'top_products' => $top_products,
             'chart_data' => json_encode($chart_data),
             'recent_orders' => $recent_orders,

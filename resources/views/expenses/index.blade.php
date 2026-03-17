@@ -9,6 +9,23 @@
                 <a href="{{ route('expenses.create') }}" class="btn btn-primary">Create Expense</a>
             </div>
 
+            <form method="GET" class="mb-3 row g-2 align-items-center">
+                <div class="col-auto">
+                    <label for="month" class="col-form-label">Month</label>
+                </div>
+                <div class="col-auto">
+                    <input type="month" id="month" name="month" class="form-control" value="{{ $selectedMonth ?? now()->format('Y-m') }}">
+                </div>
+                <div class="col-auto">
+                    <button type="submit" class="btn btn-primary">Show</button>
+                    <a href="{{ route('expenses.index') }}" class="btn btn-secondary ms-1">This month</a>
+                </div>
+            </form>
+
+            <p class="text-muted mb-3">
+                Showing expenses for {{ \Carbon\Carbon::createFromFormat('Y-m', $selectedMonth ?? now()->format('Y-m'))->format('F Y') }}.
+            </p>
+
             @if(session('success'))
                 <div class="alert text-white bg-success" role="alert">{{ session('success') }}</div>
             @endif
@@ -23,6 +40,7 @@
                             <thead class="bg-white text-uppercase">
                                 <tr>
                                     <th>No.</th>
+                                    <th>Name</th>
                                     <th>Details</th>
                                     <th>Amount</th>
                                     <th>Action</th>
@@ -32,6 +50,7 @@
                                 @foreach($items as $i => $expense)
                                 <tr>
                                     <td>{{ $i + 1 }}</td>
+                                    <td>{{ $expense->name }}</td>
                                     <td>{{ $expense->details }}</td>
                                     <td>{{ number_format($expense->amount, 2) }}</td>
                                     <td>

@@ -50,8 +50,6 @@ class Supplier extends Model
         $purchasesDue = (float) $this->purchases()->sum('due_amount');
         $paymentsTotal = (float) $this->payments()->where('type', 'debit')->sum('amount');
 
-        $remaining = $purchasesDue - $paymentsTotal;
-
-        return $remaining > 0 ? $remaining : 0.0;
+        return $purchasesDue - $paymentsTotal;
     }
 }

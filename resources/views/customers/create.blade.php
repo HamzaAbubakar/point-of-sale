@@ -28,9 +28,9 @@
                                 </div>
 
                                 <div class="form-group col-md-6">
-                                    <label for="email">Customer Email <span class="text-danger">*</span></label>
+                                    <label for="email">Customer Email</label>
                                     <input type="text" class="form-control @error('email') is-invalid @enderror" id="email"
-                                        name="email" value="{{ old('email') }}" required>
+                                        name="email" value="{{ old('email') }}">
                                     @error('email')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -50,9 +50,9 @@
                                 </div>
 
                                 <div class="form-group col-md-6">
-                                    <label for="city">Customer City <span class="text-danger">*</span></label>
+                                    <label for="city">Customer City</label>
                                     <input type="text" class="form-control @error('city') is-invalid @enderror" id="city"
-                                        name="city" value="{{ old('city') }}" required>
+                                        name="city" value="{{ old('city') }}">
                                     @error('city')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -61,9 +61,8 @@
                                 </div>
 
                                 <div class="form-group col-md-12">
-                                    <label for="address">Customer Address <span class="text-danger">*</span></label>
-                                    <textarea class="form-control @error('address') is-invalid @enderror" name="address"
-                                        required>{{ old('address') }}</textarea>
+                                    <label for="address">Customer Address</label>
+                                    <textarea class="form-control @error('address') is-invalid @enderror" name="address">{{ old('address') }}</textarea>
                                     @error('address')
                                         <div class="invalid-feedback">
                                             {{ $message }}

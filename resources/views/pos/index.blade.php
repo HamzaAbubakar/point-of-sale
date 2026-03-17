@@ -120,7 +120,7 @@
                             @empty
                                 <div class="col-12">
                                     <div class="alert alert-info text-center">
-                                        <x-heroicon-o-information-circle class="w-6 h-6 mx-auto mb-2" />
+                                        <x-heroicon-o-information-circle class="w-6" />
                                         No products found.
                                     </div>
                                 </div>
@@ -420,12 +420,14 @@
         async function deleteCart(rowId) {
             const customerId = getCustomerId();
             try {
-                const response = await fetch("{{ url('pos/delete') }}/" + rowId + "?customer_id=" + (customerId || ''), {
-                    method: 'GET',
+                const response = await fetch("{{ url('pos/cart/delete') }}/" + rowId, {
+                    method: 'POST',
                     headers: {
+                        'Content-Type': 'application/json',
                         'X-CSRF-TOKEN': '{{ csrf_token() }}',
                         'Accept': 'application/json'
-                    }
+                    },
+                    body: JSON.stringify({ customer_id: customerId })
                 });
                 const data = await response.json();
                 if (data.success) {

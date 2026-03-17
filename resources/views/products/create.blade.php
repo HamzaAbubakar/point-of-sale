@@ -75,7 +75,7 @@
 
                                 <div class="form-group col-md-6">
                                     <label for="barcode_scanner">Barcode Scanner</label>
-                                    <input type="text" class="form-control" id="barcode_scanner" 
+                                    <input type="text" class="form-control" id="barcode_scanner"
                                         placeholder="Scan barcode here (mobile-friendly)" autocomplete="off">
                                     <small class="form-text text-muted">Scan barcode to auto-fill Product Code</small>
                                 </div>
@@ -110,7 +110,7 @@
                                 <div class="form-group col-md-6">
                                     <label for="buying_price">Buying Price <span class="text-danger">*</span></label>
                                     <input type="number" class="form-control @error('buying_price') is-invalid @enderror" id="buying_price"
-                                        name="buying_price" value="{{ old('buying_price') }}" required>
+                                        name="buying_price" value="{{ old('buying_price', 0) }}" required>
                                     @error('buying_price')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -132,7 +132,7 @@
                                 <div class="form-group col-md-6">
                                     <label for="buying_date">Buying Date</label>
                                     <input id="buying_date" class="form-control @error('buying_date') is-invalid @enderror" name="buying_date"
-                                        value="{{ old('buying_date') }}" />
+                                        value="{{ old('buying_date', date('Y-m-d')) }}" />
                                     @error('buying_date')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -143,7 +143,7 @@
                                 <div class="form-group col-md-6">
                                     <label for="expire_date">Expire Date</label>
                                     <input id="expire_date" class="form-control @error('expire_date') is-invalid @enderror" name="expire_date"
-                                        value="{{ old('expire_date') }}" />
+                                        value="{{ old('expire_date', '2099-12-31') }}" />
                                     @error('expire_date')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -185,42 +185,42 @@
         (function() {
             const barcodeScanner = document.getElementById('barcode_scanner');
             const codeField = document.getElementById('code');
-            
+
             if (barcodeScanner && codeField) {
                 let scannerTimeout;
-                
+
                 // Auto-focus scanner field on mobile devices
                 function isMobileDevice() {
                     return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ||
                            (window.innerWidth <= 768);
                 }
-                
+
                 if (isMobileDevice()) {
                     // Auto-focus scanner field on mobile after a short delay
                     setTimeout(function() {
                         barcodeScanner.focus();
                     }, 300);
                 }
-                
+
                 // Handle scanner input (scanners typically send Enter after barcode)
                 barcodeScanner.addEventListener('keydown', function(e) {
                     if (e.key === 'Enter' || e.keyCode === 13) {
                         e.preventDefault();
-                        
+
                         const scannedValue = barcodeScanner.value.trim();
                         if (scannedValue) {
                             // Populate code field with scanned value
                             codeField.value = scannedValue;
-                            
+
                             // Visual feedback
                             codeField.classList.add('border-success');
                             setTimeout(function() {
                                 codeField.classList.remove('border-success');
                             }, 1000);
-                            
+
                             // Clear scanner field
                             barcodeScanner.value = '';
-                            
+
                             // Re-focus scanner for next scan
                             if (isMobileDevice()) {
                                 setTimeout(function() {
@@ -230,7 +230,7 @@
                         }
                     }
                 });
-                
+
                 // Handle paste events (some scanners use paste)
                 barcodeScanner.addEventListener('paste', function(e) {
                     setTimeout(function() {

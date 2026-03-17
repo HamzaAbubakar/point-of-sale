@@ -11,6 +11,15 @@
     </div>
 
     <div class="form-group col-md-4">
+        <label for="name">Name</label>
+        <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" id="name"
+               value="{{ old('name', $expense->name ?? '') }}">
+        @error('name')
+            <small class="text-danger">{{ $message }}</small>
+        @enderror
+    </div>
+
+    <div class="form-group col-md-4">
         <label for="amount">Amount</label>
         <input type="number" step="0.01" class="form-control @error('amount') is-invalid @enderror" name="amount" id="amount"
                value="{{ old('amount', $expense->amount ?? '') }}" required>

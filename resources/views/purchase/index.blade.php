@@ -32,7 +32,7 @@
                                                 <input type="text" class="form-control" name="search" id="purchase_search"
                                                     placeholder="Search by name or barcode..." value="{{ request('search') }}" autocomplete="off">
                                                 <div class="input-group-append">
-                                                    <button type="submit" class="input-group-text bg-primary text-white">
+                                                    <button type="submit" class="input-group-text bg-success text-white">
                                                         <x-heroicon-o-magnifying-glass class="w-5 h-5" />
                                                     </button>
                                                     @if (request('search') || request('category_id'))
@@ -99,7 +99,7 @@
                                             </h6>
 
                                             <div class="d-flex align-items-center justify-content-between mt-auto">
-                                                <h5 class="text-primary font-weight-bolder mb-0" style="font-size: 1.1rem;">
+                                                <h5 class="text-success font-weight-bolder mb-0" style="font-size: 1.1rem;">
                                                     {{ number_format($product->buying_price ?? $product->selling_price) }}
                                                 </h5>
 
@@ -109,7 +109,7 @@
                                                     <input type="hidden" name="name" value="{{ $product->name }}">
                                                     <input type="hidden" name="price" value="{{ $product->buying_price ?? $product->selling_price }}">
                                                     <button type="submit"
-                                                        class="btn btn-primary btn-sm rounded-pill px-3 shadow-sm d-flex align-items-center">
+                                                        class="btn btn-success btn-sm rounded-pill px-3 shadow-sm d-flex align-items-center">
                                                         <x-heroicon-o-plus class="w-4 h-4 mr-1" /> Add
                                                     </button>
                                                 </form>
@@ -120,7 +120,7 @@
                             @empty
                                 <div class="col-12">
                                     <div class="alert alert-info text-center">
-                                        <x-heroicon-o-information-circle class="w-6 h-6 mx-auto mb-2" />
+                                        <x-heroicon-o-information-circle class="w-6" />
                                         No products found.
                                     </div>
                                 </div>
@@ -140,11 +140,11 @@
             <!-- RIGHT COLUMN: Cart System -->
             <div class="col-md-12 col-lg-4">
                 <div class="card border-0 shadow-lg sticky-top" style="top: 20px; z-index: 100;">
-                    <div class="card-header bg-primary text-white d-flex align-items-center justify-content-between p-3">
+                    <div class="card-header bg-success text-white d-flex align-items-center justify-content-between p-3">
                         <h5 class="mb-0 text-white">
                             <x-heroicon-o-shopping-cart class="w-5 h-5 mr-1 inline" /> Current Purchase
                         </h5>
-                        <span class="badge badge-light text-primary font-weight-bold" id="cart-count-badge">
+                        <span class="badge badge-light text-success font-weight-bold" id="cart-count-badge">
                             {{ Cart::instance('purchase')->count() }} items
                         </span>
                     </div>
@@ -154,7 +154,7 @@
                         <div class="p-4 border-bottom bg-white">
                             <div class="d-flex justify-content-between align-items-center mb-3">
                                 <label class="font-weight-bold h6 mb-0 text-dark">Supplier Details</label>
-                                <button type="button" class="btn btn-sm btn-primary rounded-pill px-3 shadow-sm d-flex align-items-center" data-toggle="modal" data-target="#addSupplierModal">
+                                <button type="button" class="btn btn-sm btn-success rounded-pill px-3 shadow-sm d-flex align-items-center" data-toggle="modal" data-target="#addSupplierModal">
                                     <x-heroicon-o-plus class="w-4 h-4 mr-1" /> Add New
                                 </button>
                             </div>
@@ -179,7 +179,7 @@
     <div class="modal fade" id="paymentModal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content border-0 shadow-lg" style="border-radius: 20px;">
-                <div class="modal-header bg-primary text-white"
+                <div class="modal-header bg-success text-white"
                     style="border-top-left-radius: 20px; border-top-right-radius: 20px;">
                     <h5 class="modal-title font-weight-bold mx-auto">Complete Purchase</h5>
                     <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
@@ -270,7 +270,7 @@
                             <div class="modal-footer border-top-0 d-flex justify-content-between p-4 bg-light"
                                 style="border-bottom-left-radius: 20px; border-bottom-right-radius: 20px;">
                                 <button type="button" class="btn btn-outline-secondary px-4" data-dismiss="modal">Cancel</button>
-                                <button type="submit" class="btn btn-primary px-5 shadow-sm">Confirm Purchase</button>
+                                <button type="submit" class="btn btn-success px-5 shadow-sm">Confirm Purchase</button>
                             </div>
                             </form>
                             </div>
@@ -281,7 +281,7 @@
     <div class="modal fade" id="addSupplierModal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content border-0 shadow-lg">
-                <div class="modal-header bg-primary text-white">
+                <div class="modal-header bg-success text-white">
                     <h5 class="modal-title font-weight-bold">Add New Supplier</h5>
                     <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
@@ -315,7 +315,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save Supplier</button>
+                        <button type="submit" class="btn btn-success">Save Supplier</button>
                     </div>
                 </form>
             </div>

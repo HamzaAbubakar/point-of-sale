@@ -26,15 +26,15 @@
                         <!-- Quantity Controls -->
                         <div class="d-flex align-items-center bg-light rounded-pill px-1">
                             <button type="button" class="btn btn-sm btn-circle text-danger"
-                                onclick="updateCart('{{ $item->rowId }}', {{ $item->qty - 1 }}, document.getElementById('price-{{ $item->rowId }}').value)">
+                                onclick="updateCart('{{ $item->rowId }}', Math.max(1, Number(document.getElementById('qty-{{ $item->rowId }}').value) - 1), document.getElementById('price-{{ $item->rowId }}').value)">
                                 <x-heroicon-o-minus class="w-3 h-3" />
                             </button>
-                            <span class="font-weight-bold text-dark mx-2 small"
-                                style="min-width: 20px; text-align: center;">
-                                {{ $item->qty }}
-                            </span>
+                            <input type="number" id="qty-{{ $item->rowId }}" class="form-control form-control-sm border-0 bg-light text-center"
+                                style="width: 60px;"
+                                value="{{ $item->qty }}" min="1"
+                                onchange="updateCart('{{ $item->rowId }}', this.value, document.getElementById('price-{{ $item->rowId }}').value)">
                             <button type="button" class="btn btn-sm btn-circle text-success"
-                                onclick="updateCart('{{ $item->rowId }}', {{ $item->qty + 1 }}, document.getElementById('price-{{ $item->rowId }}').value)">
+                                onclick="updateCart('{{ $item->rowId }}', Number(document.getElementById('qty-{{ $item->rowId }}').value) + 1, document.getElementById('price-{{ $item->rowId }}').value)">
                                 <x-heroicon-o-plus class="w-3 h-3" />
                             </button>
                         </div>

@@ -9,17 +9,29 @@ use Illuminate\Http\Request;
 
 class ExpenseController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        // Group expenses by date (Y-m-d) with latest dates first
-        $grouped = Expense::orderBy('date', 'desc')
+        // Show expenses for a specific month (defaults to current)
+        $monthParam = $request->query('month');
+        $selectedMonth = $monthParam ?: now()->format('Y-m');
+
+        try {
+            $month = \Carbon\Carbon::createFromFormat('Y-m', $selectedMonth)->startOfMonth();
+        } catch (\Exception $e) {
+            $month = now()->startOfMonth();
+            $selectedMonth = $month->format('Y-m');
+        }
+
+        $grouped = Expense::whereYear('date', $month->year)
+            ->whereMonth('date', $month->month)
+            ->orderBy('date', 'desc')
             ->orderBy('created_at', 'desc')
             ->get()
             ->groupBy(function ($item) {
                 return $item->date->format('Y-m-d');
             });
 
-        return view('expenses.index', ['grouped' => $grouped]);
+        return view('expenses.index', ['grouped' => $grouped, 'selectedMonth' => $selectedMonth]);
     }
 
     public function create()
